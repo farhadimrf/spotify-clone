@@ -10,6 +10,7 @@ import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
+import { toast } from "react-hot-toast";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -29,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
     // TODO: reset any playing songs
     router.refresh();
 
-    if (error) console.log(error);
+    error ? toast.error(error.message) : toast.success("Logged out!");
   };
 
   return (
@@ -68,7 +69,10 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
               <Button className="bg-white px-6 py-2" onClick={handleLogout}>
                 Logout
               </Button>
-              <Button className="bg-white" onClick={()=>router.push('/account')}>
+              <Button
+                className="bg-white"
+                onClick={() => router.push("/account")}
+              >
                 <FaUserAlt />
               </Button>
             </div>
