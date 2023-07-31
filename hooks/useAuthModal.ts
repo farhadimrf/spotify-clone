@@ -13,3 +13,4 @@ const useAuthModal = create<AuthModalStore>((set) => ({
 }));
 
 export default useAuthModal;
+ 
