@@ -26,7 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     placeholder:text-neutral-400
     focus:outline-none
     disabled:cursor-not-allowed
-    disabled:opacity-0
+    disabled:opacity-50
     `,
           className
         )}
