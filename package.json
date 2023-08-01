@@ -22,19 +22,22 @@
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.2",
     "react-hot-toast": "^2.4.1",
     "react-icon": "^1.0.0",
     "react-icons": "^4.10.1",
     "stripe": "^12.16.0",
     "tailwind-merge": "^1.14.0",
     "typescript": "5.1.6",
+    "uniqid": "^5.4.0",
     "zustand": "^4.3.9"
   },
   "devDependencies": {
+    "@types/uniqid": "^5.3.2",
     "autoprefixer": "^10.4.14",
     "concurrently": "^8.2.0",
     "postcss": "^8.4.27",
-    "prettier": "^3.0.0",
+    "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.5",
     "supabase": "^1.82.2",
     "tailwindcss": "^3.3.3"
