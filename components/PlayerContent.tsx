@@ -7,14 +7,48 @@ import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import Slider from "./Slider";
+import usePlayer from "@/hooks/usePlayer";
+import { useState } from "react";
 
 interface PlayerContentProps {
   song: Song;
   songUrl: string;
 }
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
-  const Icon = false ? BsPauseFill : BsPlayFill;
-  const VolumeIcon = true ? HiSpeakerXMark : HiSpeakerWave;
+  const player = usePlayer();
+  const [volume, setVolume] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+  const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
+
+  const onPlayNext = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+    const nextSong = player.ids[currentIndex + 1];
+
+    if (!nextSong) {
+      return player.setId(player.ids[0]);
+    }
+
+    player.setId(nextSong);
+  };
+
+  const onPlayPrevious = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+    const previousSong = player.ids[currentIndex - 1];
+
+    if (!previousSong) {
+      return player.setId(player.ids[player.ids.length - 1]);
+    }
+
+    player.setId(previousSong);
+  };
 
   return (
     <div className="grid h-full grid-cols-2 md:grid-cols-3">
@@ -34,7 +68,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       </div>
       <div className="hidden h-full w-full max-w-[722px] items-center justify-center gap-x-6 md:flex">
         <AiFillStepBackward
-          onClick={() => {}}
+          onClick={onPlayPrevious}
           size={30}
           className="cursor-pointer text-neutral-400 transition hover:text-white"
         />
@@ -45,7 +79,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
           <Icon size={30} className="text-black" />
         </div>
         <AiFillStepForward
-          onClick={() => {}}
+          onClick={onPlayNext}
           size={30}
           className="cursor-pointer text-neutral-400 transition hover:text-white"
         />
