@@ -26,18 +26,22 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const { user } = useUser();
 
   const handleLogout = async () => {
+    toast.success("Logged out!");
     const { error } = await supabaseClient.auth.signOut();
     // TODO: reset any playing songs
-    router.refresh();
 
-    error ? toast.error(error.message) : toast.success("Logged out!");
+    router.refresh();
+    if (error) {
+      // toast.error(error.message);
+      toast.error("Something wrong!");
+    }
   };
 
   return (
     <div
       className={twMerge(
         `h-fit bg-gradient-to-b from-emerald-800 p-6`,
-        className,
+        className
       )}
     >
       <div className="mb-4 flex w-full items-center justify-between">
