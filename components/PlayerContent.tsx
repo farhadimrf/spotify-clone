@@ -1,14 +1,17 @@
 "use client";
 
-import { Song } from "@/types";
-import MediaItem from "./MediaItem";
-import LikeButton from "./LikeButton";
-import { BsPlayFill, BsPauseFill } from "react-icons/bs";
-import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+import useSound from "use-sound";
+import { useEffect, useState } from "react";
+import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
-import Slider from "./Slider";
+import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+
+import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
-import { useState } from "react";
+
+import LikeButton from "./LikeButton";
+import MediaItem from "./MediaItem";
+import Slider from "./Slider";
 
 interface PlayerContentProps {
   song: Song;
@@ -49,6 +52,21 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
 
     player.setId(previousSong);
   };
+
+  // const [play, { pause, sound }] = useSound(songUrl, {
+  //   volume: volume,
+  //   onplay: () => setIsPlaying(true),
+  //   onend: () => {
+  //     setIsPlaying(false);
+  //     onPlayNext();
+  //   },
+  //   onpause: () => setIsPlaying(false),
+  //   format: ["mp3", "mpeg"],
+  // });
+
+  // useEffect(() => {
+  //   sound?.play();
+  // }, []);
 
   return (
     <div className="grid h-full grid-cols-2 md:grid-cols-3">
